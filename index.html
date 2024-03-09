@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Pegawai</title>
+</head>
+<body>
+
+<table  align="center"  border="1">
+  <thead>
+    <tr>
+      <th>Nama Pegawai</th>
+      <th>Jabatan</th>
+      <th>Status</th>
+      <th>Gaji Pokok</th>
+      <th>Tunjangan Jabatan</th>
+      <th>BPJS</th>
+      <th>Tunjangan Keluarga</th>
+      <th>Total Gaji</th>
+    </tr>
+  </thead>
+  <tbody id="data">
+    <!-- Data pegawai akan dimasukkan melalui JavaScript -->
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="7">Total</td>
+      <td id="totalGaji"></td>
+    </tr>
+  </tfoot>
+</table>
+
+<script>
+  // Data Pegawai
+  var pegawai = {
+    nama: "Ridwan",
+    jabatan: "Manager",
+    status: "menikah",
+  };
+
+  // Menghitung Gaji Pokok
+  var gajiPokok;
+  switch (pegawai.jabatan) {
+    case "Manager":
+      gajiPokok = 15000000; // 15 jt
+      break;
+    case "Asisten Manager":
+      gajiPokok = 10000000; // 10 jt
+      break;
+    case "Staff":
+      gajiPokok = 5000000; // 5 jt
+      break;
+    default:
+      gajiPokok = 0;
+  }
+
+  // Menghitung Tunjangan Jabatan (15% dari gapok)
+  var tunjanganJabatan = 0.15 * gajiPokok;
+
+  // Menghitung BPJS (10% dari gapok)
+  var bpjs = 0.10 * gajiPokok;
+
+  // Menghitung Tunjangan Keluarga (20% dari gapok jika menikah, 0% jika belum menikah)
+  var tunjanganKeluarga = (pegawai.status === "menikah") ? 0.20 * gajiPokok : 0;
+
+  // Menghitung Total Gaji
+  var totalGaji = gajiPokok + tunjanganJabatan + bpjs + tunjanganKeluarga;
+
+  // Menyusun data pegawai dalam tabel
+  var tableBody = document.getElementById("data");
+  var newRow = tableBody.insertRow();
+  newRow.innerHTML = `
+    <td>${pegawai.nama}</td>
+    <td>${pegawai.jabatan}</td>
+    <td>${pegawai.status}</td>
+    <td>${gajiPokok}</td>
+    <td>${tunjanganJabatan}</td>
+    <td>${bpjs}</td>
+    <td>${tunjanganKeluarga}</td>
+    <td>${totalGaji}</td>
+  `;
+
+  // Menampilkan total gaji
+  document.getElementById("totalGaji").innerText = totalGaji;
+</script>
+
+</body>
+</html>
